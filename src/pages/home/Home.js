@@ -14,12 +14,23 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+function generateRandomPhrase() {
+  const chars = 100;
+  const letters =
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz_";
+  let randomPhrase = "";
+  for (let i = 0; i < chars; i++) {
+    randomPhrase += letters.charAt(Math.floor(Math.random() * letters.length));
+  }
+  return randomPhrase;
+}
+
 function Home() {
+  const [phrase, setPhrase] = React.useState(generateRandomPhrase());
   const [typerDisabled, setTyperDisabled] = React.useState(false);
   const [typerStatus, setTyperStatus] = React.useState(
     AlertConfigurationEnum.default
   );
-  const phrase = "teste externo";
   function endGame(generatedPhrase, typedPhrase) {
     setTyperDisabled(true);
     setTyperStatus(

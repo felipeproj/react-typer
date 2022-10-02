@@ -2,7 +2,8 @@ import * as React from "react";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
+import Divider from "@mui/material/Divider";
+import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Collapse from "@mui/material/Collapse";
 import Alert from "@mui/material/Alert";
@@ -31,7 +32,6 @@ function Typer({
     if (generatedPhrase === event.target.value) {
       endGame(generatedPhrase, event.target.value);
     }
-    console.log(`value: ${typedPhrase}`);
   };
 
   function validateTypedPhrase(typedPhrase) {
@@ -63,7 +63,7 @@ function Typer({
           </Collapse>
           <TextField
             id="standard-multiline-flexible"
-            label="Digita a frase:"
+            label="Digite a frase aleatória:"
             multiline
             rows={4}
             fullWidth
@@ -72,11 +72,21 @@ function Typer({
             color={inputColor}
             disabled={disabled}
           />
+
+          <Divider sx={{ mt: 6, mb: 4 }}>Frase aleatória</Divider>
+
+          <TextField
+            id="filled-multiline-static"
+            hiddenLabel
+            multiline
+            fullWidth
+            value={generatedPhrase}
+            disabled={true}
+            variant="filled"
+            size="small"
+          />
         </CardContent>
-        <CardActions>
-          {generatedPhrase}
-          <Button size="small">Learn More</Button>
-        </CardActions>
+        <CardActions></CardActions>
       </Card>
     </React.Fragment>
   );
