@@ -4,6 +4,7 @@ import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typer from "../../components/typer/Typer";
+import Countdown from "../../components/countdown/Countdown";
 import { AlertConfigurationEnum } from "../../components/typer/AlertConfiguration";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -52,7 +53,7 @@ function Home() {
           />
         </Grid>
         <Grid xs={3}>
-          <Item>xs=6</Item>
+          <Countdown />
         </Grid>
       </Grid>
     </Container>

@@ -1,9 +1,7 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Divider from "@mui/material/Divider";
-import Chip from "@mui/material/Chip";
 import TextField from "@mui/material/TextField";
 import Collapse from "@mui/material/Collapse";
 import Alert from "@mui/material/Alert";
@@ -86,7 +84,6 @@ function Typer({
             size="small"
           />
         </CardContent>
-        <CardActions></CardActions>
       </Card>
     </React.Fragment>
   );
