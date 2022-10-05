@@ -28,15 +28,23 @@ function Countdown({
   const [showStart, setShowStart] = React.useState(true);
   const [timerPaused, setTimerPaused] = React.useState(false);
   const [timer, setTimer] = React.useState(0);
+  const [formattedTimer, setFormattedTimer] = React.useState(formatTime(timer));
 
   React.useEffect(() => {
     const interval = setInterval(() => {
       if (!timerPaused) setTimer((timer) => timer - 1);
     }, 1000);
     timer === 0 && finalizeTimer(interval);
+    setFormattedTimer(formatTime(timer));
 
     return () => clearInterval(interval);
   }, [timer, timerPaused]);
+
+  function formatTime(seconds) {
+    const time = new Date(0);
+    time.setSeconds(seconds);
+    return time.toISOString().substring(14, 19);
+  }
 
   function startTimer() {
     setShowStart(false);
@@ -72,7 +80,7 @@ function Countdown({
       <Card variant="elevation" elevation={6}>
         <CardContent sx={centralizeCardContent}>
           <Typography variant="h1" component="h2">
-            {timer}
+            {formattedTimer}
           </Typography>
         </CardContent>
         <CardActions sx={centralizeCardContent}>

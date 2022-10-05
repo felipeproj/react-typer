@@ -25,10 +25,10 @@ function Typer({
     setAlertAttributes(AlertConfiguration[status]);
   }, [status]);
 
-  const handleChange = (event) => {
+  function handleChange(event) {
     setTypedPhrase(event.target.value);
     validateTypedPhrase(event.target.value);
-  };
+  }
 
   function validateTypedPhrase(typedPhrase) {
     const typedLength = typedPhrase.length;
