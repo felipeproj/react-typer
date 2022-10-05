@@ -7,7 +7,7 @@ export const AlertConfigurationEnum = {
 export const AlertConfiguration = {
   default: {
     open: false,
-    severity: "",
+    severity: "info",
     title: "",
     text: "",
   },

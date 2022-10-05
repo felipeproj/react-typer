@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import PauseCircleOutlineIcon from "@mui/icons-material/PauseCircleOutline";
 import StopCircleIcon from "@mui/icons-material/StopCircle";
+import Tooltip from "@mui/material/Tooltip";
 
 const centralizeCardContent = {
   display: "flex",
@@ -19,7 +20,7 @@ const centralizeCardContent = {
 };
 
 function Countdown({
-  defaultTime = 15,
+  defaultTime = 1,
   countdownStarted,
   countdownPaused,
   countdownUnpaused,
@@ -30,12 +31,17 @@ function Countdown({
   const [timer, setTimer] = React.useState(0);
   const [formattedTimer, setFormattedTimer] = React.useState(formatTime(timer));
 
+  // TODO: Fix the innumerable timer change calls
   React.useEffect(() => {
     const interval = setInterval(() => {
-      if (!timerPaused) setTimer((timer) => timer - 1);
+      if (!timerPaused && timer > 0) setTimer((timer) => timer - 1);
     }, 1000);
-    timer === 0 && finalizeTimer(interval);
-    setFormattedTimer(formatTime(timer));
+    if (!showStart) {
+      setFormattedTimer(formatTime(timer));
+      if (timer === 0) {
+        finalizeTimer(interval);
+      }
+    }
 
     return () => clearInterval(interval);
   }, [timer, timerPaused]);
@@ -86,27 +92,24 @@ function Countdown({
         <CardActions sx={centralizeCardContent}>
           <Box>
             {timerPaused ? (
-              <IconButton aria-label="stop">
-                <StopCircleIcon
-                  sx={{ height: 38, width: 38 }}
-                  onClick={stopTimer}
-                />
-              </IconButton>
+              <Tooltip title="Stop">
+                <IconButton aria-label="stop" onClick={stopTimer}>
+                  <StopCircleIcon sx={{ height: 38, width: 38 }} />
+                </IconButton>
+              </Tooltip>
             ) : null}
             {!showStart && !timerPaused ? (
-              <IconButton aria-label="pause">
-                <PauseCircleOutlineIcon
-                  sx={{ height: 38, width: 38 }}
-                  onClick={pauseTimer}
-                />
-              </IconButton>
+              <Tooltip title="Pause">
+                <IconButton aria-label="pause" onClick={pauseTimer}>
+                  <PauseCircleOutlineIcon sx={{ height: 38, width: 38 }} />
+                </IconButton>
+              </Tooltip>
             ) : (
-              <IconButton aria-label="play">
-                <PlayCircleOutlineIcon
-                  sx={{ height: 38, width: 38 }}
-                  onClick={startTimer}
-                />
-              </IconButton>
+              <Tooltip title="Play">
+                <IconButton aria-label="play" onClick={startTimer}>
+                  <PlayCircleOutlineIcon sx={{ height: 38, width: 38 }} />
+                </IconButton>
+              </Tooltip>
             )}
           </Box>
         </CardActions>

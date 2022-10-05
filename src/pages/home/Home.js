@@ -8,14 +8,6 @@ import Countdown from "../../components/countdown/Countdown";
 import generateRandomPhrase from "../../shared/randomPhrase";
 import { AlertConfigurationEnum } from "../../components/typer/AlertConfiguration";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-}));
-
 function Home() {
   const [typedPhrase, setTypedPhrase] = React.useState("");
   const [phrase, setPhrase] = React.useState("");
@@ -58,6 +50,7 @@ function Home() {
     setTyperDisabled(true);
     endGame();
   }
+
   return (
     <Container>
       <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>

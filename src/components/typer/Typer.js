@@ -10,7 +10,6 @@ import { AlertConfiguration } from "./AlertConfiguration";
 
 function Typer({
   generatedPhrase = "",
-  endGame,
   typedPhrase = "",
   setTypedPhrase,
   disabled = false,
