@@ -5,6 +5,7 @@ import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import Typer from "../../components/typer/Typer";
 import Countdown from "../../components/countdown/Countdown";
+import generateRandomPhrase from "../../shared/randomPhrase";
 import { AlertConfigurationEnum } from "../../components/typer/AlertConfiguration";
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -15,45 +16,68 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-function generateRandomPhrase() {
-  const chars = 100;
-  const letters =
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz_";
-  let randomPhrase = "";
-  for (let i = 0; i < chars; i++) {
-    randomPhrase += letters.charAt(Math.floor(Math.random() * letters.length));
-  }
-  return randomPhrase;
-}
-
 function Home() {
-  const [phrase, setPhrase] = React.useState(generateRandomPhrase());
-  const [typerDisabled, setTyperDisabled] = React.useState(false);
+  const [typedPhrase, setTypedPhrase] = React.useState("");
+  const [phrase, setPhrase] = React.useState("");
+  const [typerDisabled, setTyperDisabled] = React.useState(true);
   const [typerStatus, setTyperStatus] = React.useState(
     AlertConfigurationEnum.default
   );
-  function endGame(generatedPhrase, typedPhrase) {
+
+  React.useEffect(() => {
+    if (phrase === typedPhrase && phrase !== "") {
+      endGame();
+    }
+  }, [typedPhrase]);
+
+  function endGame() {
     setTyperDisabled(true);
     setTyperStatus(
-      generatedPhrase === typedPhrase
+      phrase === typedPhrase
         ? AlertConfigurationEnum.success
         : AlertConfigurationEnum.error
     );
   }
 
+  function startGame() {
+    setTypedPhrase("");
+    setTyperStatus(AlertConfigurationEnum.default);
+    setPhrase(generateRandomPhrase(10));
+    setTyperDisabled(false);
+  }
+
+  function pauseGame() {
+    setTyperDisabled(true);
+  }
+
+  function unpauseGame() {
+    setTyperDisabled(false);
+  }
+
+  function finalizeGame() {
+    setTyperDisabled(true);
+    endGame();
+  }
   return (
     <Container>
       <Grid container columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid xs={9}>
           <Typer
             generatedPhrase={phrase}
-            endGame={endGame}
             disabled={typerDisabled}
             status={typerStatus}
+            typedPhrase={typedPhrase}
+            setTypedPhrase={setTypedPhrase}
+            endGame={endGame}
           />
         </Grid>
         <Grid xs={3}>
-          <Countdown />
+          <Countdown
+            countdownStarted={startGame}
+            countdownPaused={pauseGame}
+            countdownUnpaused={unpauseGame}
+            countdownFinalized={finalizeGame}
+          />
         </Grid>
       </Grid>
     </Container>

@@ -18,7 +18,13 @@ const centralizeCardContent = {
   width: "100%",
 };
 
-function Countdown({ defaultTime = 15 }) {
+function Countdown({
+  defaultTime = 15,
+  countdownStarted,
+  countdownPaused,
+  countdownUnpaused,
+  countdownFinalized,
+}) {
   const [showStart, setShowStart] = React.useState(true);
   const [timerPaused, setTimerPaused] = React.useState(false);
   const [timer, setTimer] = React.useState(0);
@@ -35,10 +41,17 @@ function Countdown({ defaultTime = 15 }) {
   function startTimer() {
     setShowStart(false);
     setTimerPaused(false);
-    setTimer(timer === 0 ? defaultTime : timer);
+    if (timer === 0) {
+      if (countdownStarted) countdownStarted();
+      setTimer(defaultTime);
+    } else {
+      if (countdownUnpaused) countdownUnpaused();
+      setTimer(timer);
+    }
   }
 
   function pauseTimer() {
+    if (countdownPaused) countdownPaused();
     setTimerPaused(true);
     setTimer(timer);
   }
@@ -47,6 +60,7 @@ function Countdown({ defaultTime = 15 }) {
     clearInterval(interval);
     setShowStart(true);
     setTimerPaused(false);
+    if (countdownFinalized) countdownFinalized();
   }
 
   function stopTimer() {

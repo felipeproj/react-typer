@@ -21,6 +21,6 @@ export const AlertConfiguration = {
     open: true,
     severity: "error",
     title: "Ops, não foi dessa vez!",
-    text: "Você não conseguiu concluir o desafio! Clique em 'Recomeçar' para iniciar um novo jogo.",
+    text: "Você não conseguiu concluir o desafio! Clique em 'Iniciar' para iniciar um novo jogo.",
   },
 };

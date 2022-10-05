@@ -11,10 +11,11 @@ import { AlertConfiguration } from "./AlertConfiguration";
 function Typer({
   generatedPhrase = "",
   endGame,
+  typedPhrase = "",
+  setTypedPhrase,
   disabled = false,
   status = "default",
 }) {
-  const [typedPhrase, setTypedPhrase] = React.useState("");
   const [inputColor, setInputColor] = React.useState("primary");
   const [alertAttributes, setAlertAttributes] = React.useState(
     AlertConfiguration[status]
@@ -27,9 +28,6 @@ function Typer({
   const handleChange = (event) => {
     setTypedPhrase(event.target.value);
     validateTypedPhrase(event.target.value);
-    if (generatedPhrase === event.target.value) {
-      endGame(generatedPhrase, event.target.value);
-    }
   };
 
   function validateTypedPhrase(typedPhrase) {
