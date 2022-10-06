@@ -20,7 +20,7 @@ const centralizeCardContent = {
 };
 
 function Countdown({
-  defaultTime = 1,
+  defaultTime = 15,
   countdownStarted,
   countdownPaused,
   countdownUnpaused,

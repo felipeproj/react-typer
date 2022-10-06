@@ -1,19 +1,19 @@
 // External libs
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseLine from "@mui/material/CssBaseLine";
-
+import Container from "@mui/material/Container";
 // Pages
 import Home from "./pages/home/Home";
 
 // Shared contents
-import { darkTheme } from "./shared/theme";
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
-      <CssBaseLine />
+    <Container
+      sx={{
+        height: "100vh",
+      }}
+    >
       <Home />
-    </ThemeProvider>
+    </Container>
   );
 }
 
